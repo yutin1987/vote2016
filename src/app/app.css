@@ -18,35 +18,46 @@ div {
   border-top: none;
   color: #FEFEFE;
   font-family: 'NotoSansCJKtc';
-  background: #FEFEFE;
+  background: #313131;
+  font-size: 18px;
 }
 
 .pBarPos {
   text-align: right;
   padding-right: 10px;
+  transition: all 3s ease-in-out;
 }
 
-.p:nth-child(1),
-.p:nth-child(1) .pBarPos {
+.p:nth-child(1) {
   background: #0F2643;
+}
+
+.p:nth-child(1) .pBarPos {
+  background: #5394CE;
 }
 
 .p:nth-child(1) .pBar {
   border-color: #0F2643;
 }
 
-.p:nth-child(2),
-.p:nth-child(2) .pBarPos {
+.p:nth-child(2) {
   background: #05444F;
+}
+
+.p:nth-child(2) .pBarPos {
+  background: #8DC21E;
 }
 
 .p:nth-child(2) .pBar {
   border-color: #05444F;
 }
 
-.p:nth-child(3),
-.p:nth-child(3) .pBarPos {
+.p:nth-child(3) {
   background: #8D1A00;
+}
+
+.p:nth-child(3) .pBarPos {
+  background: #EE795E;
 }
 
 .p:nth-child(3) .pBar {

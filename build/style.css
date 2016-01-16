@@ -18,35 +18,47 @@ div {
   border-top: none;
   color: #FEFEFE;
   font-family: 'NotoSansCJKtc';
-  background: #FEFEFE;
+  background: #313131;
+  font-size: 18px;
 }
 
 .app__pBarPos {
   text-align: right;
   padding-right: 10px;
+  -webkit-transition: all 3s ease-in-out;
+  transition: all 3s ease-in-out;
 }
 
-.app__p:nth-child(1),
-.app__p:nth-child(1) .app__pBarPos {
+.app__p:nth-child(1) {
   background: #0F2643;
+}
+
+.app__p:nth-child(1) .app__pBarPos {
+  background: #5394CE;
 }
 
 .app__p:nth-child(1) .app__pBar {
   border-color: #0F2643;
 }
 
-.app__p:nth-child(2),
-.app__p:nth-child(2) .app__pBarPos {
+.app__p:nth-child(2) {
   background: #05444F;
+}
+
+.app__p:nth-child(2) .app__pBarPos {
+  background: #8DC21E;
 }
 
 .app__p:nth-child(2) .app__pBar {
   border-color: #05444F;
 }
 
-.app__p:nth-child(3),
-.app__p:nth-child(3) .app__pBarPos {
+.app__p:nth-child(3) {
   background: #8D1A00;
+}
+
+.app__p:nth-child(3) .app__pBarPos {
+  background: #EE795E;
 }
 
 .app__p:nth-child(3) .app__pBar {

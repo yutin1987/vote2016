@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7db0f3e0f1dcbf351b5e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9a2cd9464fe6268cc3cd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -804,9 +804,9 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      $(function () {
-	        var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/1/public/values?alt=json';
+	      var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/1/public/values?alt=json';
 
+	      setInterval(function () {
 	        $.getJSON(url).then(function (reply) {
 	          var entry = reply.feed.entry;
 	          _this2.setState({
@@ -818,7 +818,7 @@
 	            })
 	          });
 	        });
-	      });
+	      }, 3000);
 	    }
 	  }, {
 	    key: 'render',
@@ -845,7 +845,7 @@
 	                { className: _app2.default.pBar },
 	                _react2.default.createElement(
 	                  'div',
-	                  { className: _app2.default.pBarPos, style: { width: '30%' } },
+	                  { className: _app2.default.pBarPos, style: { width: item.value / 8000000 * 100 + '%' } },
 	                  item.value
 	                )
 	              )

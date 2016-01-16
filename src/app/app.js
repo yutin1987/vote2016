@@ -11,9 +11,10 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    $(() => {
-      const url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/1/public/values?alt=json';
+    const url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/1/public/values?alt=json';
 
+
+    setInterval(() => {
       $.getJSON(url).then((reply) => {
         const entry = reply.feed.entry;
         this.setState({
@@ -25,7 +26,7 @@ class App extends React.Component {
           }),
         })
       });
-    });
+    }, 3000);
   }
 
   render() {
@@ -38,7 +39,7 @@ class App extends React.Component {
               <div className={style.p}>
                 <div><img src={`image/p${i+1}.png`} /></div>
                 <div className={style.pBar}>
-                  <div className={style.pBarPos} style={{width: '30%'}}>{item.value}</div>
+                  <div className={style.pBarPos} style={{width: `${item.value/8000000*100}%`}}>{item.value}</div>
                 </div>
               </div>
             );
