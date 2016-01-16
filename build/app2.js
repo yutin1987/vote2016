@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1fa4a86fd4f2d5cb5020"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "307f5b0a1ee21eb80538"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -550,8 +550,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(3);
-	__webpack_require__(4);
-	module.exports = __webpack_require__(290);
+	module.exports = __webpack_require__(4);
 
 
 /***/ },
@@ -806,71 +805,34 @@
 	    }
 
 	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_Object$getPrototypeO = (0, _getPrototypeOf2.default)(App)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      p: [],
 	      t4: []
 	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
 	  }
 
 	  (0, _createClass3.default)(App, [{
-	    key: 'findPresidentFromDoc',
-	    value: function findPresidentFromDoc() {
+	    key: 'findT4FromDoc',
+	    value: function findT4FromDoc() {
 	      var _this2 = this;
 
-	      var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/1/public/values?alt=json';
+	      var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/2/public/values?alt=json';
 
 	      $.getJSON(url).then(function (reply) {
 	        var entry = reply.feed.entry;
 	        _this2.setState({
-	          p: entry.map(function (item) {
+	          t4: entry.map(function (item) {
 	            return {
 	              name: item.gsx$name.$t,
-	              value: item.gsx$value.$t
+	              value: item.gsx$value.$t,
+	              id: item.gsx$id.$t
 	            };
 	          })
 	        });
 	      });
 	    }
 	  }, {
-	    key: 'findPresidentFromParse',
-	    value: function findPresidentFromParse() {
-	      var _this3 = this;
-
-	      var qPresident = new _parse2.default.Query('President');
-	      qPresident.limit(1000);
-	      qPresident.find().then(function (result) {
-	        var p1 = 0;
-	        var p2 = 0;
-	        var p3 = 0;
-	        var pOpen = 0;
-	        var pMax = 0;
-
-	        result.map(function (item) {
-	          switch (item.get('name')) {
-	            case '朱立倫王如玄':
-	              p1 += parseInt(item.get('value'), 10);break;
-	            case '蔡英文陳建仁':
-	              p2 += parseInt(item.get('value'), 10);break;
-	            case '宋楚瑜徐欣瑩':
-	              p3 += parseInt(item.get('value'), 10);break;
-	          }
-
-	          pOpen += parseInt(item.get('open'));
-	          pMax += parseInt(item.get('max'));
-	        });
-
-	        pOpen /= 3;
-	        pMax /= 3;
-
-	        return _this3.setState({ p1: p1, p2: p2, p3: p3, pOpen: pOpen, pMax: pMax });
-	      }).always(function () {
-	        setTimeout(_this3.findPresidentFromParse.bind(_this3), 10000);
-	      });
-	    }
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      setInterval(this.findPresidentFromDoc.bind(this), 3000);
-	      setTimeout(this.findPresidentFromParse.bind(this), 10000);
+	      setInterval(this.findT4FromDoc.bind(this), 3000);
 	    }
 	  }, {
 	    key: 'render',
@@ -887,53 +849,20 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { style: { width: 300 } },
-	          p.map(function (item, i) {
-	            return _react2.default.createElement(
-	              'div',
-	              { key: i, className: _app2.default.p },
-	              _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement('img', { src: 'image/p' + (i + 1) + '.png' })
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: _app2.default.pBar },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: _app2.default.pBarPos, style: { width: item.value / 8000000 * 100 + '%' } },
-	                  _accounting2.default.formatNumber(item.value)
-	                )
-	              )
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
+	        t4.filter(function (item) {
+	          return item.id ? item : null;
+	        }).map(function (item, i) {
+	          return _react2.default.createElement(
 	            'div',
-	            null,
-	            '總統票[中選會]',
-	            _react2.default.createElement('br', null),
-	            '國民黨朱立倫: ',
-	            p1,
-	            _react2.default.createElement('br', null),
-	            '民進黨蔡英文: ',
-	            p2,
-	            _react2.default.createElement('br', null),
-	            '親民黨宋楚瑜: ',
-	            p3,
-	            _react2.default.createElement('br', null),
-	            '開票狀況: ',
-	            pOpen,
-	            '/',
-	            pMax
-	          )
-	        )
+	            { key: i, className: _app2.default.t4 },
+	            _react2.default.createElement('img', { src: 'image/' + item.id + '.png' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: _app2.default.info },
+	              _accounting2.default.formatNumber(item.value)
+	            )
+	          );
+	        })
 	      );
 	    }
 	  }]);
@@ -32082,256 +32011,6 @@
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"wrap":"app__wrap","p":"app__p","pBar":"app__pBar","pBarPos":"app__pBarPos","t4":"app__t4","info":"app__info"};
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _getPrototypeOf = __webpack_require__(5);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(17);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(18);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(22);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(47);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _react = __webpack_require__(54);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(211);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _classnames = __webpack_require__(212);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _parse = __webpack_require__(213);
-
-	var _parse2 = _interopRequireDefault(_parse);
-
-	var _accounting = __webpack_require__(288);
-
-	var _accounting2 = _interopRequireDefault(_accounting);
-
-	var _app = __webpack_require__(289);
-
-	var _app2 = _interopRequireDefault(_app);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	_parse2.default.initialize("pPZFiNUUeXErVRv2slUWxToiuXL1kBf1wJwMBHA5", "BIuzDtmV1mWqTXoyBcklu34nthQLWoq4f0Dj54yi");
-
-	var App = function (_React$Component) {
-	  (0, _inherits3.default)(App, _React$Component);
-
-	  function App() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    (0, _classCallCheck3.default)(this, App);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_Object$getPrototypeO = (0, _getPrototypeOf2.default)(App)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
-	      p: [],
-	      t4: []
-	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-	  }
-
-	  (0, _createClass3.default)(App, [{
-	    key: 'findPresidentFromDoc',
-	    value: function findPresidentFromDoc() {
-	      var _this2 = this;
-
-	      var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/1/public/values?alt=json';
-
-	      $.getJSON(url).then(function (reply) {
-	        var entry = reply.feed.entry;
-	        _this2.setState({
-	          p: entry.map(function (item) {
-	            return {
-	              name: item.gsx$name.$t,
-	              value: item.gsx$value.$t
-	            };
-	          })
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'findPresidentFromParse',
-	    value: function findPresidentFromParse() {
-	      var _this3 = this;
-
-	      var qPresident = new _parse2.default.Query('President');
-	      qPresident.limit(1000);
-	      qPresident.find().then(function (result) {
-	        var p1 = 0;
-	        var p2 = 0;
-	        var p3 = 0;
-	        var pOpen = 0;
-	        var pMax = 0;
-
-	        result.map(function (item) {
-	          switch (item.get('name')) {
-	            case '朱立倫王如玄':
-	              p1 += parseInt(item.get('value'), 10);break;
-	            case '蔡英文陳建仁':
-	              p2 += parseInt(item.get('value'), 10);break;
-	            case '宋楚瑜徐欣瑩':
-	              p3 += parseInt(item.get('value'), 10);break;
-	          }
-
-	          pOpen += parseInt(item.get('open'));
-	          pMax += parseInt(item.get('max'));
-	        });
-
-	        pOpen /= 3;
-	        pMax /= 3;
-
-	        return _this3.setState({ p1: p1, p2: p2, p3: p3, pOpen: pOpen, pMax: pMax });
-	      }).always(function () {
-	        setTimeout(_this3.findPresidentFromParse.bind(_this3), 10000);
-	      });
-	    }
-	  }, {
-	    key: 'findT4FromDoc',
-	    value: function findT4FromDoc() {
-	      var _this4 = this;
-
-	      var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/2/public/values?alt=json';
-
-	      $.getJSON(url).then(function (reply) {
-	        var entry = reply.feed.entry;
-	        _this4.setState({
-	          t4: entry.map(function (item) {
-	            return {
-	              name: item.gsx$name.$t,
-	              value: item.gsx$value.$t,
-	              id: item.gsx$id.$t
-	            };
-	          })
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      setInterval(this.findPresidentFromDoc.bind(this), 3000);
-	      setTimeout(this.findPresidentFromParse.bind(this), 10000);
-	      setInterval(this.findT4FromDoc.bind(this), 3000);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _state = this.state;
-	      var p = _state.p;
-	      var p1 = _state.p1;
-	      var p2 = _state.p2;
-	      var p3 = _state.p3;
-	      var pOpen = _state.pOpen;
-	      var pMax = _state.pMax;
-	      var t4 = _state.t4;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: _app2.default.wrap },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { style: { width: 300 } },
-	            p.map(function (item, i) {
-	              return _react2.default.createElement(
-	                'div',
-	                { key: i, className: _app2.default.p },
-	                _react2.default.createElement(
-	                  'div',
-	                  null,
-	                  _react2.default.createElement('img', { src: 'image/p' + (i + 1) + '.png' })
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: _app2.default.pBar },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: _app2.default.pBarPos, style: { width: item.value / 8000000 * 100 + '%' } },
-	                    _accounting2.default.formatNumber(item.value)
-	                  )
-	                )
-	              );
-	            })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '總統票[中選會]',
-	              _react2.default.createElement('br', null),
-	              '國民黨朱立倫: ',
-	              p1,
-	              _react2.default.createElement('br', null),
-	              '民進黨蔡英文: ',
-	              p2,
-	              _react2.default.createElement('br', null),
-	              '親民黨宋楚瑜: ',
-	              p3,
-	              _react2.default.createElement('br', null),
-	              '開票狀況: ',
-	              pOpen,
-	              '/',
-	              pMax
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          t4.filter(function (item) {
-	            return item.id ? item : null;
-	          }).map(function (item, i) {
-	            return _react2.default.createElement(
-	              'div',
-	              { key: i, className: _app2.default.t4 },
-	              _react2.default.createElement('img', { src: 'image/' + item.id + '.png' }),
-	              _react2.default.createElement(
-	                'div',
-	                { className: _app2.default.info },
-	                _accounting2.default.formatNumber(item.value)
-	              )
-	            );
-	          })
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null)
-	      );
-	    }
-	  }]);
-	  return App;
-	}(_react2.default.Component);
-
-	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
 
 /***/ }
 /******/ ]);

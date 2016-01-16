@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eee30b85d7077f726cc6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5b37b3934f9a5d1483ec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -866,31 +866,10 @@
 	      });
 	    }
 	  }, {
-	    key: 'findT4FromDoc',
-	    value: function findT4FromDoc() {
-	      var _this4 = this;
-
-	      var url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/2/public/values?alt=json';
-
-	      $.getJSON(url).then(function (reply) {
-	        var entry = reply.feed.entry;
-	        _this4.setState({
-	          t4: entry.map(function (item) {
-	            return {
-	              name: item.gsx$name.$t,
-	              value: item.gsx$value.$t,
-	              id: item.gsx$id.$t
-	            };
-	          })
-	        });
-	      });
-	    }
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      setInterval(this.findPresidentFromDoc.bind(this), 3000);
 	      setTimeout(this.findPresidentFromParse.bind(this), 10000);
-	      setInterval(this.findT4FromDoc.bind(this), 3000);
 	    }
 	  }, {
 	    key: 'render',
@@ -906,78 +885,54 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: _app2.default.wrap },
+	        null,
 	        _react2.default.createElement(
 	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { style: { width: 300 } },
-	            p.map(function (item, i) {
-	              return _react2.default.createElement(
-	                'div',
-	                { key: i, className: _app2.default.p },
-	                _react2.default.createElement(
-	                  'div',
-	                  null,
-	                  _react2.default.createElement('img', { src: 'image/p' + (i + 1) + '.png' })
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: _app2.default.pBar },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: _app2.default.pBarPos, style: { width: item.value / 8000000 * 100 + '%' } },
-	                    _accounting2.default.formatNumber(item.value)
-	                  )
-	                )
-	              );
-	            })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '總統票[中選會]',
-	              _react2.default.createElement('br', null),
-	              '國民黨朱立倫: ',
-	              p1,
-	              _react2.default.createElement('br', null),
-	              '民進黨蔡英文: ',
-	              p2,
-	              _react2.default.createElement('br', null),
-	              '親民黨宋楚瑜: ',
-	              p3,
-	              _react2.default.createElement('br', null),
-	              '開票狀況: ',
-	              pOpen,
-	              '/',
-	              pMax
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          t4.filter(function (item) {
-	            return item.id ? item : null;
-	          }).map(function (item, i) {
+	          { style: { width: 300 } },
+	          p.map(function (item, i) {
 	            return _react2.default.createElement(
 	              'div',
-	              { key: i, className: _app2.default.t4 },
-	              _react2.default.createElement('img', { src: 'image/' + item.id + '.png' }),
+	              { key: i, className: _app2.default.p },
 	              _react2.default.createElement(
 	                'div',
-	                { className: _app2.default.info },
-	                _accounting2.default.formatNumber(item.value)
+	                null,
+	                _react2.default.createElement('img', { src: 'image/p' + (i + 1) + '.png' })
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: _app2.default.pBar },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: _app2.default.pBarPos, style: { width: item.value / 8000000 * 100 + '%' } },
+	                  _accounting2.default.formatNumber(item.value)
+	                )
 	              )
 	            );
 	          })
 	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null)
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            '總統票[中選會]',
+	            _react2.default.createElement('br', null),
+	            '國民黨朱立倫: ',
+	            p1,
+	            _react2.default.createElement('br', null),
+	            '民進黨蔡英文: ',
+	            p2,
+	            _react2.default.createElement('br', null),
+	            '親民黨宋楚瑜: ',
+	            p3,
+	            _react2.default.createElement('br', null),
+	            '開票狀況: ',
+	            pOpen,
+	            '/',
+	            pMax
+	          )
+	        )
 	      );
 	    }
 	  }]);
