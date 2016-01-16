@@ -2,6 +2,17 @@ div {
   box-sizing: border-box;
 }
 
+.app__wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.app__wrap > * {
+  margin-right: 50px;
+}
+
 .app__p {
   max-width: 300px;
   font-family: serif;
@@ -63,4 +74,23 @@ div {
 
 .app__p:nth-child(3) .app__pBar {
   border-color: #8D1A00;
+}
+
+.app__t4 {
+  max-width: 100px;
+  display: inline-block;
+}
+
+.app__t4 img {
+  width: 100%;
+}
+
+.app__info {
+  background: #363636;
+  color: #FEFEFE;
+  border-radius: 0 0 10px 10px;
+  margin-top: -10px;
+  text-align: center;
+  line-height: 24px;
+  font-size: 16px;
 }

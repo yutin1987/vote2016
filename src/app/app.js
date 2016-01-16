@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import c from 'classnames';
 import Parse from 'parse';
+import accounting from 'accounting';
 
 import style from './app.css';
 
@@ -11,6 +12,7 @@ class App extends React.Component {
 
   state = {
     p: [],
+    t4: [],
   };
 
   findPresidentFromDoc() {
@@ -58,36 +60,67 @@ class App extends React.Component {
         return this.setState({ p1, p2, p3, pOpen, pMax });
       })
       .always(() => {
-        setTimeout(this.findPresidentFromParse, 10000);
+        setTimeout(::this.findPresidentFromParse, 10000);
       });
+  }
+
+  findT4FromDoc() {
+    const url = 'https://spreadsheets.google.com/feeds/list/1Bz0USG2NRm4XBDiZcnX1lKwt29R5KeRMaHaWjpYFfOg/2/public/values?alt=json';
+
+    $.getJSON(url).then((reply) => {
+      const entry = reply.feed.entry;
+      this.setState({
+        t4: entry.map(item => {
+          return {
+            name: item.gsx$name.$t,
+            value: item.gsx$value.$t,
+            id: item.gsx$id.$t,
+          }
+        }),
+      });
+    });
   }
 
   componentDidMount() {
     setInterval(::this.findPresidentFromDoc, 3000);
     setTimeout(::this.findPresidentFromParse, 10000);
+    setInterval(::this.findT4FromDoc, 3000);
   }
 
   render() {
-    const {p, p1, p2, p3, pOpen, pMax} = this.state;
+    const {p, p1, p2, p3, pOpen, pMax, t4} = this.state;
+
     return (
-      <div>
+      <div className={style.wrap}>
         <div>
-          {p.map((item, i) => {
-            return (
-              <div key={i} className={style.p}>
-                <div><img src={`image/p${i+1}.png`} /></div>
-                <div className={style.pBar}>
-                  <div className={style.pBarPos} style={{width: `${item.value/8000000*100}%`}}>{item.value}</div>
+          <div style={{width: 300}}>
+            {p.map((item, i) => {
+              return (
+                <div key={i} className={style.p}>
+                  <div><img src={`image/p${i+1}.png`} /></div>
+                  <div className={style.pBar}>
+                    <div className={style.pBarPos} style={{width: `${item.value/8000000*100}%`}}>{accounting.formatNumber(item.value)}</div>
+                  </div>
                 </div>
+              );
+            })}
+          </div>
+          <div>
+            <div>總統票[中選會]<br />國民黨朱立倫: {p1}<br />民進黨蔡英文: {p2}<br />親民黨宋楚瑜: {p3}<br />開票狀況: {pOpen}/{pMax}</div>
+          </div>
+        </div>
+        <div>
+          {t4.filter(item => item.id ? item : null).map((item, i) => {
+            return (
+              <div key={i} className={style.t4}>
+                <img src={`image/${item.id}.png`} />
+                <div className={style.info}>{accounting.formatNumber(item.value)}</div>
               </div>
             );
           })}
         </div>
         <br />
         <br />
-        <div>
-          <div>總統票[中選會]<br />國民黨朱立倫: {p1}<br />民進黨蔡英文: {p2}<br />親民黨宋楚瑜: {p3}<br />開票狀況: {pOpen}/{pMax}</div>
-        </div>
       </div>
     );
   }
