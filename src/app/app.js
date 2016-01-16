@@ -12,7 +12,6 @@ class App extends React.Component {
 
   state = {
     p: [],
-    t4: [],
   };
 
   findPresidentFromDoc() {
