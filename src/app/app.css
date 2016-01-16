@@ -1,0 +1,54 @@
+div {
+  box-sizing: border-box;
+}
+
+.p {
+  max-width: 300px;
+  font-family: serif;
+}
+
+.p img {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.pBar {
+  border: 3px solid #FFF;
+  border-top: none;
+  color: #FEFEFE;
+  font-family: 'NotoSansCJKtc';
+  background: #FEFEFE;
+}
+
+.pBarPos {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.p:nth-child(1),
+.p:nth-child(1) .pBarPos {
+  background: #0F2643;
+}
+
+.p:nth-child(1) .pBar {
+  border-color: #0F2643;
+}
+
+.p:nth-child(2),
+.p:nth-child(2) .pBarPos {
+  background: #05444F;
+}
+
+.p:nth-child(2) .pBar {
+  border-color: #05444F;
+}
+
+.p:nth-child(3),
+.p:nth-child(3) .pBarPos {
+  background: #8D1A00;
+}
+
+.p:nth-child(3) .pBar {
+  border-color: #8D1A00;
+}

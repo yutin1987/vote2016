@@ -32,14 +32,18 @@ class App extends React.Component {
     const {p} = this.state;
     return (
       <div>
-        {p.map((item, i) => {
-          return (
-            <div>
-              <img src={`image/p${i+1}.png`} />
-              <div>{item.name}: {item.value}</div>
-            </div>
-          );
-        })}
+        <div>
+          {p.map((item, i) => {
+            return (
+              <div className={style.p}>
+                <div><img src={`image/p${i+1}.png`} /></div>
+                <div className={style.pBar}>
+                  <div className={style.pBarPos} style={{width: '30%'}}>{item.value}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

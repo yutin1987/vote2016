@@ -1,0 +1,54 @@
+div {
+  box-sizing: border-box;
+}
+
+.app__p {
+  max-width: 300px;
+  font-family: serif;
+}
+
+.app__p img {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.app__pBar {
+  border: 3px solid #FFF;
+  border-top: none;
+  color: #FEFEFE;
+  font-family: 'NotoSansCJKtc';
+  background: #FEFEFE;
+}
+
+.app__pBarPos {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.app__p:nth-child(1),
+.app__p:nth-child(1) .app__pBarPos {
+  background: #0F2643;
+}
+
+.app__p:nth-child(1) .app__pBar {
+  border-color: #0F2643;
+}
+
+.app__p:nth-child(2),
+.app__p:nth-child(2) .app__pBarPos {
+  background: #05444F;
+}
+
+.app__p:nth-child(2) .app__pBar {
+  border-color: #05444F;
+}
+
+.app__p:nth-child(3),
+.app__p:nth-child(3) .app__pBarPos {
+  background: #8D1A00;
+}
+
+.app__p:nth-child(3) .app__pBar {
+  border-color: #8D1A00;
+}

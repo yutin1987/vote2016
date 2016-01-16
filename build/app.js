@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "afdbefabfdc4ab803b44"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7db0f3e0f1dcbf351b5e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -828,20 +828,30 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        p.map(function (item, i) {
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement('img', { src: 'image/p' + (i + 1) + '.png' }),
-	            _react2.default.createElement(
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          p.map(function (item, i) {
+	            return _react2.default.createElement(
 	              'div',
-	              null,
-	              item.name,
-	              ': ',
-	              item.value
-	            )
-	          );
-	        })
+	              { className: _app2.default.p },
+	              _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement('img', { src: 'image/p' + (i + 1) + '.png' })
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: _app2.default.pBar },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: _app2.default.pBarPos, style: { width: '30%' } },
+	                  item.value
+	                )
+	              )
+	            );
+	          })
+	        )
 	      );
 	    }
 	  }]);
@@ -21375,6 +21385,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+	module.exports = {"p":"app__p","pBar":"app__pBar","pBarPos":"app__pBarPos"};
 
 /***/ }
 /******/ ]);
