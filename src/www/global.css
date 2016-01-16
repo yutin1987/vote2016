@@ -1,0 +1,19 @@
+
+@font-face {
+  font-family: 'NotoSansCJKtc';
+  font-style: normal;
+  font-weight: normal;
+  src:  url('NotoSansCJKtc.woff') format('woff');
+}
+
+body {
+  font-family: 'NotoSansCJKtc';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+html, body, h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
