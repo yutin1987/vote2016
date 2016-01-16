@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1fcecb2fa706e40f5157"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0335c81da93a67fcf747"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -819,7 +819,8 @@
 	        '綠黨社會民主黨聯盟': { value: 0 }
 	      },
 	      tMax: 0,
-	      tOpen: 0
+	      tOpen: 0,
+	      sum: 0
 	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
 	  }
 
@@ -832,14 +833,18 @@
 
 	      $.getJSON(url).then(function (reply) {
 	        var entry = reply.feed.entry;
+	        var sum = 0;
 	        _this2.setState({
 	          t4: entry.map(function (item) {
+	            sum += parseInt(item.gsx$value.$t, 10);
+
 	            return {
 	              name: item.gsx$name.$t,
 	              value: item.gsx$value.$t,
 	              id: item.gsx$id.$t
 	            };
-	          })
+	          }),
+	          sum: sum
 	        });
 	      });
 	    }
@@ -870,8 +875,6 @@
 	        tOpen /= 18;
 	        tMax /= 18;
 
-	        console.log(t4x);
-
 	        return _this3.setState({ t4x: t4x, tOpen: tOpen, tMax: tMax });
 	      }).always(function () {
 	        setTimeout(_this3.findT4FromParse.bind(_this3), 10000);
@@ -891,6 +894,11 @@
 	      var t4x = _state.t4x;
 	      var tOpen = _state.tOpen;
 	      var tMax = _state.tMax;
+	      var sum = _state.sum;
+
+	      var idx = ['民主進步黨', '中國國民黨', '台灣團結聯盟', '親民黨', '時代力量', '綠黨社會民主黨聯盟'];
+
+	      var total = 0;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -908,7 +916,10 @@
 	              _react2.default.createElement(
 	                'div',
 	                { className: _app2.default.info },
-	                _accounting2.default.formatNumber(item.value)
+	                _accounting2.default.formatNumber(item.value),
+	                ' - ',
+	                parseInt(item.value / sum * 100, 10),
+	                '%'
 	              )
 	            );
 	          })
@@ -916,13 +927,13 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          ['民主進步黨', '中國國民黨', '台灣團結聯盟', '親民黨', '時代力量', '綠黨社會民主黨聯盟'].map(function (key, i) {
+	          idx.map(function (key, i) {
 	            return _react2.default.createElement(
 	              'div',
 	              { key: i },
 	              key,
 	              ': ',
-	              _accounting2.default.formatNumber(t4x[key].value)
+	              t4x[key].value
 	            );
 	          })
 	        ),
@@ -930,15 +941,29 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          (0, _keys2.default)(t4x).map(function (key, i) {
+	          (0, _keys2.default)(t4x).filter(function (key) {
+	            return idx.indexOf(key) > -1 ? false : key;
+	          }).map(function (key, i) {
+	            total += parseInt(t4x[key].value, 10);
 	            return _react2.default.createElement(
 	              'div',
 	              { key: i },
 	              key,
 	              ': ',
-	              _accounting2.default.formatNumber(t4x[key].value)
+	              t4x[key].value
 	            );
 	          })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '其他政黨加總: ',
+	          total,
+	          _react2.default.createElement('br', null),
+	          '開票狀況: ',
+	          tOpen,
+	          '/',
+	          tMax
 	        )
 	      );
 	    }

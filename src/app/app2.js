@@ -22,6 +22,7 @@ class App extends React.Component {
     },
     tMax: 0,
     tOpen: 0,
+    sum: 0,
   };
 
   findT4FromDoc() {
@@ -29,14 +30,18 @@ class App extends React.Component {
 
     $.getJSON(url).then((reply) => {
       const entry = reply.feed.entry;
+      let sum = 0;
       this.setState({
         t4: entry.map(item => {
+          sum += parseInt(item.gsx$value.$t, 10);
+
           return {
             name: item.gsx$name.$t,
             value: item.gsx$value.$t,
             id: item.gsx$id.$t,
           }
         }),
+        sum,
       });
     });
   }
@@ -66,8 +71,6 @@ class App extends React.Component {
         tOpen /= 18;
         tMax /= 18;
 
-        console.log(t4x);
-
         return this.setState({ t4x, tOpen, tMax });
       })
       .always(() => {
@@ -81,7 +84,11 @@ class App extends React.Component {
   }
 
   render() {
-    const {t4, t4x, tOpen, tMax} = this.state;
+    const {t4, t4x, tOpen, tMax, sum} = this.state;
+
+    const idx = ['民主進步黨', '中國國民黨', '台灣團結聯盟', '親民黨', '時代力量', '綠黨社會民主黨聯盟'];
+
+    let total = 0;
 
     return (
       <div>
@@ -90,30 +97,32 @@ class App extends React.Component {
             return (
               <div key={i} className={style.t4}>
                 <img src={`image/${item.id}.png`} />
-                <div className={style.info}>{accounting.formatNumber(item.value)}</div>
+                <div className={style.info}>{accounting.formatNumber(item.value)} - {parseInt((item.value / sum * 100), 10)}%</div>
               </div>
             );
           })}
         </div>
         <div>
-          {['民主進步黨', '中國國民黨', '台灣團結聯盟', '親民黨', '時代力量', '綠黨社會民主黨聯盟'].map((key, i) => {
+          {idx.map((key, i) => {
             return (
               <div key={i}>
-                {key}: {accounting.formatNumber(t4x[key].value)}
+                {key}: {t4x[key].value}
               </div>
             );
           })}
         </div>
         <br />
         <div>
-          {Object.keys(t4x).map((key, i) => {
+          {Object.keys(t4x).filter(key => idx.indexOf(key) > -1 ? false : key).map((key, i) => {
+            total += parseInt(t4x[key].value, 10);
             return (
               <div key={i}>
-                {key}: {accounting.formatNumber(t4x[key].value)}
+                {key}: {t4x[key].value}
               </div>
             );
           })}
         </div>
+        <div>其他政黨加總: {total}<br />開票狀況: {tOpen}/{tMax}</div>
       </div>
     );
   }

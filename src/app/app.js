@@ -79,7 +79,7 @@ class App extends React.Component {
               <div key={i} className={style.p}>
                 <div><img src={`image/p${i+1}.png`} /></div>
                 <div className={style.pBar}>
-                  <div className={style.pBarPos} style={{width: `${item.value/8000000*100}%`}}>{accounting.formatNumber(item.value)}</div>
+                  <div className={style.pBarPos} style={{width: `${item.value/8000000*100}%`}}>{item.value}</div>
                 </div>
               </div>
             );
