@@ -7,7 +7,8 @@ var config = {
   entry: [
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
-    path.join(__dirname, '/src/app/app.js')
+    path.join(__dirname, '/src/app/app.js'),
+    path.join(__dirname, '/src/app/app2.js')
   ],
 
   resolve: {
@@ -24,7 +25,7 @@ var config = {
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'app.js'
+    filename: '[name].js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
