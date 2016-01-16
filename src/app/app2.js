@@ -80,7 +80,7 @@ class App extends React.Component {
 
   componentDidMount() {
     setInterval(::this.findT4FromDoc, 3000);
-    setTimeout(::this.findT4FromParse, 10000);
+    // setTimeout(::this.findT4FromParse, 10000);
   }
 
   render() {
@@ -102,27 +102,6 @@ class App extends React.Component {
             );
           })}
         </div>
-        <div>
-          {idx.map((key, i) => {
-            return (
-              <div key={i}>
-                {key}: {t4x[key].value}
-              </div>
-            );
-          })}
-        </div>
-        <br />
-        <div>
-          {Object.keys(t4x).filter(key => idx.indexOf(key) > -1 ? false : key).map((key, i) => {
-            total += parseInt(t4x[key].value, 10);
-            return (
-              <div key={i}>
-                {key}: {t4x[key].value}
-              </div>
-            );
-          })}
-        </div>
-        <div>其他政黨加總: {total}<br />開票狀況: {tOpen}/{tMax}</div>
       </div>
     );
   }
